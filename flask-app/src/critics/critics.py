@@ -3,16 +3,16 @@ import json
 from src import db
 
 
-products = Blueprint('products', __name__)
+critics = Blueprint('critics', __name__)
 
-# Get all the products from the database
-@products.route('/products', methods=['GET'])
-def get_products():
+# Get all the critics from the database
+@critics.route('/critics', methods=['GET'])
+def get_critics():
     # get a cursor object from the database
     cursor = db.get_db().cursor()
 
-    # use cursor to query the database for a list of products
-    cursor.execute('select productCode, productName, productVendor from products')
+    # use cursor to query the database for a list of critics
+    cursor.execute('select criticid, username from critics')
 
     # grab the column headers from the returned data
     column_headers = [x[0] for x in cursor.description]
@@ -31,13 +31,13 @@ def get_products():
 
     return jsonify(json_data)
 
-# get the top 5 products from the database
-@products.route('/top5products')
-def get_most_pop_products():
+# get the top 5 critics from the database
+@critics.route('/top5critics')
+def get_most_pop_critics():
     cursor = db.get_db().cursor()
     query = '''
         SELECT p.productCode, productName, sum(quantityOrdered) as totalOrders
-        FROM products p JOIN orderdetails od on p.productCode = od.productCode
+        FROM critics p JOIN orderdetails od on p.productCode = od.productCode
         GROUP BY p.productCode, productName
         ORDER BY totalOrders DESC
         LIMIT 5;
