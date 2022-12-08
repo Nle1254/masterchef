@@ -257,7 +257,7 @@ insert into critic (criticid, email, username, pw, reviews_given, restaurantid, 
 insert into critic (criticid, email, username, pw, reviews_given, restaurantid, reviewid) values (20, 'dtaltonj@elegantthemes.com', 'bzimekj', 'zePVZ2p', 17, 12, 14);
 
 
-insert into customer (customerid, first_name, last_name, email, pw, street_address, city, st) values (1, 'Admin_first', 'Admin_last', 'customer@admin.com', 'admin', '07820 Corscot Pass', 'Worcester', 'MA');
+insert into customer (customerid, first_name, last_name, email, pw, street_address, city, st) values (1, 'Jane', 'Doe', 'customer@admin.com', 'admin', '07820 Corscot Pass', 'Worcester', 'MA');
 insert into customer (customerid, first_name, last_name, email, pw, street_address, city, st) values (2, 'Jere', 'Chesterton', 'jchesterton1@ucoz.com', 'oLZaiT63hm8', '0 Monument Terrace', 'Albany', 'NY');
 insert into customer (customerid, first_name, last_name, email, pw, street_address, city, st) values (3, 'Corinne', 'Stritton', 'cstritton2@barnesandnoble.com', 'TNbOEbopu', '4734 Stoughton Way', 'Jackson', 'MS');
 insert into customer (customerid, first_name, last_name, email, pw, street_address, city, st) values (4, 'Harold', 'Boxall', 'hboxall3@omniture.com', 'Kcmh1VYR', '86824 Jenifer Street', 'Grand Junction', 'CO');
@@ -328,16 +328,16 @@ insert into drink_menu_items (drink_menu_itemsid, drink_menuid, drink_typeid, dr
 insert into drink_menu_items (drink_menu_itemsid, drink_menuid, drink_typeid, drink_menu_item_name, drink_menu_item_description, price) values (20, 6, 3, 'scelerisque quam turpis adipiscing', 'sapien in sapien iaculis congue vivamus', 95);
 
 
-insert into genre (genreid, food_type, restaurantid) values (1, 'China', 2);
-insert into genre (genreid, food_type, restaurantid) values (2, 'Japan', 3);
-insert into genre (genreid, food_type, restaurantid) values (3, 'Syria', 18);
-insert into genre (genreid, food_type, restaurantid) values (4, 'Colombia', 6);
-insert into genre (genreid, food_type, restaurantid) values (5, 'North Korea', 12);
-insert into genre (genreid, food_type, restaurantid) values (6, 'France', 17);
-insert into genre (genreid, food_type, restaurantid) values (7, 'America', 4);
-insert into genre (genreid, food_type, restaurantid) values (8, 'Brazil', 8);
-insert into genre (genreid, food_type, restaurantid) values (9, 'Vietnam', 9);
-insert into genre (genreid, food_type, restaurantid) values (10, 'Honduras', 7);
+insert into genre (genreid, food_type, restaurantid) values (1, 'Chinese', 2);
+insert into genre (genreid, food_type, restaurantid) values (2, 'Japanese', 3);
+insert into genre (genreid, food_type, restaurantid) values (3, 'French', 18);
+insert into genre (genreid, food_type, restaurantid) values (4, 'Colombian', 6);
+insert into genre (genreid, food_type, restaurantid) values (5, 'American', 12);
+insert into genre (genreid, food_type, restaurantid) values (6, 'Korean', 17);
+insert into genre (genreid, food_type, restaurantid) values (7, 'Vietnamese', 4);
+insert into genre (genreid, food_type, restaurantid) values (8, 'Indian', 8);
+insert into genre (genreid, food_type, restaurantid) values (9, 'Italian', 9);
+insert into genre (genreid, food_type, restaurantid) values (10, 'Thai', 7);
 
 
 insert into regular_menu (regular_menuid, regular_menu_itemsid, menutypeid) values (1, 4, 3);
