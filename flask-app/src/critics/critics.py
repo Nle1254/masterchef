@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify, make_response
 import json
 from src import db
 from flask import current_app
+from flask import logging
 
 
 critics = Blueprint('critics', __name__)
@@ -90,11 +91,43 @@ def get_critic_email(email):
     the_response.mimetype = 'application/json'
     return the_response
 
-@critics.route('/addreview', methods = ['POST'])
+@critics.route('/review/<critID>', methods=['GET'])
+def get_reviews(critID):
+    cursor = db.get_db().cursor()
+    cursor.execute('select * from review where criticid = {0}'.format(critID))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+
+@critics.route('/critics_insertdata', methods=['POST'])
 def add_review():
     current_app.logger.info(request.form)
-    cur = db.get_db().cursor()
+    cursor = db.get_db().cursor()
     num_stars = request.form['num_stars']
     review_description = request.form['review_description']
     criticid = request.form['criticid']
-    resaurantid = request.form['restaurantid']
+    restaurantid = request.form['restaurantid']
+    query = f'INSERT INTO review(num_stars, review_description, criticid, restaurantid) VALUES(\"{num_stars}\", \"{review_description}\", \"{criticid}\", \"{restaurantid}\")'
+    cursor.execute(query)
+    db.get_db().commit()
+    return "Success!"
+"""
+@app.route('/critics/username', method = ['GET'])
+def get_critic_username():
+    current_app.logger.info(request.form)
+    cursor = db_connection.get_db().cursor()
+    cursor.execute('select username from critic')
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    return jsonify(json_data)
+"""
