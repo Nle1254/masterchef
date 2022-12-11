@@ -4,7 +4,7 @@ This project was created by me, Nguyen Le, for my Database Design class.
 
 The purpose of the app is to allow for anonymous, certified critics to leave detailed reviews on restaurants with Michelin Stars. The Michelin Review hopes to bridge the gap between the fine dining world and your everyday foodie. 
 
-
+Demo Video: https://youtu.be/gMnjBKyRE6w 
 
 # MySQL + Flask Project
 
