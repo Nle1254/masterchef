@@ -33,54 +33,12 @@ def get_critics():
 
     return jsonify(json_data)
 
-# get the top 5 critics from the database
-@critics.route('/top5critics')
-def get_most_pop_critics():
-    cursor = db.get_db().cursor()
-    query = '''
-        SELECT p.productCode, productName, sum(quantityOrdered) as totalOrders
-        FROM critics p JOIN orderdetails od on p.productCode = od.productCode
-        GROUP BY p.productCode, productName
-        ORDER BY totalOrders DESC
-        LIMIT 5;
-    '''
-    cursor.execute(query)
-       # grab the column headers from the returned data
-    column_headers = [x[0] for x in cursor.description]
 
-    # create an empty dictionary object to use in 
-    # putting column headers together with data
-    json_data = []
-
-    # fetch all the data from the cursor
-    theData = cursor.fetchall()
-
-    # for each of the rows, zip the data elements together with
-    # the column headers. 
-    for row in theData:
-        json_data.append(dict(zip(column_headers, row)))
-
-    return jsonify(json_data)
-
-
-@critics.route('/critics/<userID>', methods=['GET'])
-def get_critic(userID):
-    cursor = db.get_db().cursor()
-    cursor.execute('select email from critic where criticid = {0}'.format(userID))
-    row_headers = [x[0] for x in cursor.description]
-    json_data = []
-    theData = cursor.fetchall()
-    for row in theData:
-        json_data.append(dict(zip(row_headers, row)))
-    the_response = make_response(jsonify(json_data))
-    the_response.status_code = 200
-    the_response.mimetype = 'application/json'
-    return the_response
-
+#get a critic's email
 @critics.route('/critics/<email>', methods=['GET'])
 def get_critic_email(email):
     cursor = db.get_db().cursor()
-    cursor.execute('select criticid from critic where email = {0}'.format(email))
+    cursor.execute('select email from critic where criticid = {0}'.format(email))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -91,6 +49,9 @@ def get_critic_email(email):
     the_response.mimetype = 'application/json'
     return the_response
 
+
+
+#get all of a specifc critic's info
 @critics.route('/review/<critID>', methods=['GET'])
 def get_reviews(critID):
     cursor = db.get_db().cursor()
@@ -105,7 +66,7 @@ def get_reviews(critID):
     the_response.mimetype = 'application/json'
     return the_response
 
-
+# Insert a review into the database
 @critics.route('/critics_insertdata', methods=['POST'])
 def add_review():
     current_app.logger.info(request.form)
@@ -117,17 +78,3 @@ def add_review():
     query = f'INSERT INTO review(num_stars, review_description, criticid, restaurantid) VALUES(\"{num_stars}\", \"{review_description}\", \"{criticid}\", \"{restaurantid}\")'
     cursor.execute(query)
     db.get_db().commit()
-    return "Success!"
-"""
-@app.route('/critics/username', method = ['GET'])
-def get_critic_username():
-    current_app.logger.info(request.form)
-    cursor = db_connection.get_db().cursor()
-    cursor.execute('select username from critic')
-    row_headers = [x[0] for x in cursor.description]
-    json_data = []
-    theData = cursor.fetchall()
-    for row in theData:
-        json_data.append(dict(zip(row_headers, row)))
-    return jsonify(json_data)
-"""
